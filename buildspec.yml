@@ -3,20 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Starting install phase"
-      - echo "Testing network connectivity"
-      - ping -c 4 google.com || { echo 'Network connectivity issue'; exit 1; }
-      - echo "Checking available disk space"
-      - df -h
-      - echo "Updating package list"
-      - sudo apt-get update || { echo 'apt-get update failed'; exit 1; }
       - echo Installing NGINX
       - sudo apt-get update
       - sudo apt-get install nginx -y
   build:
     commands:
       - echo Build started on `date`
-      - cp index.html /var/www/html/ || { echo 'Failed to copy index.html'; exit 1; }
+      - cp index.html /var/www/html/
   post_build:
     commands:
       - echo Configuring NGINX
