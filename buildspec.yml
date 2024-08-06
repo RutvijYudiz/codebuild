@@ -3,17 +3,18 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing NGINX
+      - echo Installing build dependencies
       - sudo apt-get update
-      - sudo apt-get install nginx -y
+      - sudo apt-get install zip -y  # Install zip utility if not available
   build:
     commands:
       - echo Build started on `date`
       - cp index.html /var/www/html/
+      - zip -r build-output.zip /var/www/html/  # Create a ZIP file of the build output
   post_build:
     commands:
-      - echo Configuring NGINX
+      - echo Build completed
 
 artifacts:
   files:
-    - '**/*'
+    - build-output.zip  # Specify the ZIP file as the artifact
