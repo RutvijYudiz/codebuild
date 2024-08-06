@@ -4,11 +4,15 @@ phases:
   install:
     commands:
       - echo "Starting install phase"
+      - echo "Testing network connectivity"
+      - ping -c 4 google.com || { echo 'Network connectivity issue'; exit 1; }
+      - echo "Checking available disk space"
+      - df -h
       - echo "Updating package list"
-      - sudo apt-get update || { echo 'apt-get update failed'; exit 1; }
-      - echo Installing NGINX
-      - sudo apt-get update
-      - sudo apt-get install nginx -y
+      - sudo apt-get update -y || { echo 'apt-get update failed'; sudo apt-get update --fix-missing; exit 1; }
+      - echo "Installing NGINX"
+      - sudo apt-get install nginx -y || { echo 'NGINX installation failed'; exit 1; }
+  build:
   build:
     commands:
       - echo Build started on `date`
