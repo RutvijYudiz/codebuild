@@ -3,13 +3,16 @@ version: 0.2
 phases:
   install:
     commands:
+      - echo "Starting install phase"
+      - echo "Updating package list"
+      - sudo apt-get update || { echo 'apt-get update failed'; exit 1; }
       - echo Installing NGINX
       - sudo apt-get update
       - sudo apt-get install nginx -y
   build:
     commands:
       - echo Build started on `date`
-      - cp index.html /var/www/html/
+      - cp index.html /var/www/html/ || { echo 'Failed to copy index.html'; exit 1; }
   post_build:
     commands:
       - echo Configuring NGINX
