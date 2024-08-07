@@ -14,7 +14,6 @@ phases:
       - cd build-output
       - zip -r ../build-output.zip .
 
-
 artifacts:
   files:
-    - "output/**/*
+    - '**/*'
