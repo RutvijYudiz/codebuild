@@ -4,7 +4,7 @@ phases:
   build:
     commands:
       - echo Build started on date
-      
+
       # Create build-output directory and add files
       - mkdir -p build-output
       - cp index.html build-output/
@@ -13,27 +13,22 @@ phases:
       - cp scripts/start_nginx.sh build-output/scripts/
       - cp appspec.yml build-output/
       - cp buildspec.yml build-output/
-      
+
       # Create the ZIP file with build outputs
       - cd build-output
       - zip -r ../build-output.zip .
       - cd ..
-      
+
       # Find the dynamic deployment path and extract ZIP
       - echo "Finding dynamic deployment path..."
-      - |
-        DEPLOYMENT_PATH=$(find /opt/codedeploy-agent/deployment-root -mindepth 2 -maxdepth 2 -type d -print | grep -E 'd-[A-Z0-9]+$' | head -n 1)
-        echo "Found deployment path: $DEPLOYMENT_PATH"
-        if [ -z "$DEPLOYMENT_PATH" ]; then
-          echo "Error: Deployment path not found!"
-          exit 1
-        fi
-        DEPLOYMENT_ARCHIVE_PATH="$DEPLOYMENT_PATH/deployment-archive"
-        echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
-        
-        mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
-        echo "Extracting ZIP file to $DEPLOYMENT_ARCHIVE_PATH"
-        unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH" || { echo "Error extracting ZIP file"; exit 1; }
+      - DEPLOYMENT_PATH=$(find /opt/codedeploy-agent/deployment-root -mindepth 2 -maxdepth 2 -type d -print | grep -E 'd-[A-Z0-9]+$' | head -n 1)
+      - echo "Found deployment path: $DEPLOYMENT_PATH"
+      - if [ -z "$DEPLOYMENT_PATH" ]; then echo "Error: Deployment path not found!"; exit 1; fi
+      - DEPLOYMENT_ARCHIVE_PATH="$DEPLOYMENT_PATH/deployment-archive"
+      - echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
+      - mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
+      - echo "Extracting ZIP file to $DEPLOYMENT_ARCHIVE_PATH"
+      - unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH"
 
 artifacts:
   files:
