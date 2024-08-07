@@ -21,13 +21,12 @@ phases:
       
       # Find the dynamic deployment path and extract ZIP
       - echo "Finding dynamic deployment path..."
-      - |
-        DEPLOYMENT_PATH=$(find /opt/codedeploy-agent/deployment-root -mindepth 2 -maxdepth 2 -type d -print -exec basename {} \; | head -n 1)
-        DEPLOYMENT_ARCHIVE_PATH="/opt/codedeploy-agent/deployment-root/$DEPLOYMENT_PATH/d-*/deployment-archive"
-        echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
-        mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
-        unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH"
-
+      - DEPLOYMENT_PATH=$(find /opt/codedeploy-agent/deployment-root -mindepth 2 -maxdepth 2 -type d -print -exec basename {} \; | head -n 1)
+      - DEPLOYMENT_ARCHIVE_PATH="/opt/codedeploy-agent/deployment-root/$DEPLOYMENT_PATH/d-*/deployment-archive"
+      - echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
+      - mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
+      - unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH"
+      
 artifacts:
   files:
     - build-output.zip
