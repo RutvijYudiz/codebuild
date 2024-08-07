@@ -25,6 +25,7 @@ phases:
       - DEPLOYMENT_ARCHIVE_PATH="/opt/codedeploy-agent/deployment-root/$DEPLOYMENT_PATH/d-*/deployment-archive"
       - echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
       
+      
       # Create the target directory and extract the ZIP file
       - mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
       - unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH"
