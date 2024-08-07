@@ -20,6 +20,7 @@ phases:
       - cp appspec.yml build-output/
       - cd build-output
       - zip -r ../build-output.zip .
+      
   post_build:
     commands:
       - echo Build completed
