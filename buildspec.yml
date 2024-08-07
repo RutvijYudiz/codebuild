@@ -1,31 +1,18 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - echo Installing dependencies
-      # Add your installation commands here
-  pre_build:
-    commands:
-      - echo Pre-build steps
-      # Add any pre-build commands here
   build:
     commands:
       - echo Build started on date
-      # Add your build commands here
       - mkdir -p build-output
       - cp index.html build-output/
       - mkdir -p build-output/scripts
       - cp scripts/install_nginx.sh build-output/scripts/
       - cp scripts/start_nginx.sh build-output/scripts/
       - cp appspec.yml build-output/
-      - cp buildspec.yml build-output/  # Include buildspec.yml in build-output directory
+      - cp buildspec.yml build-output/
       - cd build-output
       - zip -r ../build-output.zip .
-  post_build:
-    commands:
-      - echo Build completed
-      # Add any post-build commands here
 
 artifacts:
   files:
