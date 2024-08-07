@@ -23,6 +23,7 @@ phases:
       - echo "Finding dynamic deployment path..."
       - |
         DEPLOYMENT_PATH=$(find /opt/codedeploy-agent/deployment-root -mindepth 2 -maxdepth 2 -type d -print | grep -E 'd-[A-Z0-9]+$' | head -n 1)
+        echo "Found deployment path: $DEPLOYMENT_PATH"
         if [ -z "$DEPLOYMENT_PATH" ]; then
           echo "Error: Deployment path not found!"
           exit 1
@@ -31,8 +32,9 @@ phases:
         echo "Deployment archive path: $DEPLOYMENT_ARCHIVE_PATH"
         
         mkdir -p "$DEPLOYMENT_ARCHIVE_PATH"
-        unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH"
-      
+        echo "Extracting ZIP file to $DEPLOYMENT_ARCHIVE_PATH"
+        unzip build-output.zip -d "$DEPLOYMENT_ARCHIVE_PATH" || { echo "Error extracting ZIP file"; exit 1; }
+
 artifacts:
   files:
     - build-output.zip
