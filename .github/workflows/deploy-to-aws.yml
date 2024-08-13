@@ -21,10 +21,4 @@ jobs:
 
       - name: Deploy to AWS
         run: |
-          # Example: Sync to S3 bucket (replace 'your-bucket-name' with actual bucket)
-          aws s3 sync . s3://your-bucket-name --exclude ".git/*"
-
-          # Example: Deploy to Elastic Beanstalk (requires AWS Elastic Beanstalk CLI)
-          # eb deploy
-
           # Add other deployment commands here as needed
