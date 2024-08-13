@@ -1,0 +1,30 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::851725603941:role/DemoCodePipeline
+          aws-region: ap-south-1
+
+      - name: Deploy to AWS
+        run: |
+          # Example: Sync to S3 bucket (replace 'your-bucket-name' with actual bucket)
+          aws s3 sync . s3://your-bucket-name --exclude ".git/*"
+
+          # Example: Deploy to Elastic Beanstalk (requires AWS Elastic Beanstalk CLI)
+          # eb deploy
+
+          # Add other deployment commands here as needed
