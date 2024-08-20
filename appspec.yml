@@ -10,15 +10,15 @@ file_exists_behavior: OVERWRITE
 hooks:
    
   # BeforeInstall:
-  
+
   #   - location: scripts/cleanup_old_files.sh
   #     timeout: 300
   #     runas: root
   AfterInstall:
     - location: scripts/install_nginx.sh
-      timeout: 300
+      timeout: 60
       runas: root
   ApplicationStart:
     - location: scripts/start_nginx.sh
-      timeout: 300
+      timeout: 60
       runas: root 
