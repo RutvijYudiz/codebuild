@@ -3,16 +3,13 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Build started on date
-      - mkdir -p build-output
-      - cp index.html build-output/
+      - echo Build started on $(date)
       - mkdir -p build-output/scripts
-      - cp scripts/install_nginx.sh build-output/scripts/
-      - cp scripts/start_nginx.sh build-output/scripts/
-      - cp appspec.yml build-output/
-      - cp buildspec.yml build-output/
+      - cp index.html build-output/
+      - cp scripts/*.sh build-output/scripts/
+      - cp appspec.yml buildspec.yml build-output/
       - cd build-output
-      - zip -r ../build-output.zip .
+      - zip -r ../build-output.zip . -x "*.git/*" 
 
 
 artifacts:
