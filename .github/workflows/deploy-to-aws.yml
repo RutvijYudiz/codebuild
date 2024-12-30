@@ -16,7 +16,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::851725603941:role/DemoCodePipeline
+          role-to-assume: arn:aws:iam::851725603941:role/OIDColedecember
           aws-region: ap-south-1
 
       - name: Deploy to AWS
